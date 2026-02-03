@@ -8,15 +8,19 @@ public float rotationSpeed;
 public float jumpSpeed;
 public float jumpGracePeriod; //This will be used to allow the player to jump if they press the jump button a fraction too early/late to improve the game feel :)
 
+private Animator animator;
 private CharacterController characterController;
 private float ySpeed; //Keeps track of the speed in the Y direction & increase this when the player jumps and decrease due to the gravity
 private float originalStepOffset;
 private float? lastGroundedTime; //The ? means that it can either contain a float value or no value at all
 private float? jumpButtonPressedTime;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animator = GetComponent<Animator>();
+
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
     }
@@ -67,9 +71,14 @@ private float? jumpButtonPressedTime;
 
         if (movementDirection != Vector3.zero) //Checks if player is moving
         {
+            animator.SetBool("isMoving", true); //If the player is moving, sets the animator bool to true, transitioning from idle to running
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up); //Rotates the player to the direction of the movement input
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime); //Rotates towards the above direction according to the rotation speed variable
+        }
+        else
+        {
+            animator.SetBool("isMoving", false); //This transitions the running animation back to the idle one
         }
     }
 }
