@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-public float speed;
+public float maximumSpeed;
 public float rotationSpeed;
 public float jumpSpeed;
 public float jumpGracePeriod; //This will be used to allow the player to jump if they press the jump button a fraction too early/late to improve the game feel :)
@@ -32,7 +32,15 @@ private float? jumpButtonPressedTime;
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
-        float magnitude = Mathf.Clamp01(movementDirection.magnitude) * speed; //Ensures the player speeds stays capped at the chosen speed variable amount
+        float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+
+        if (Input.GetKey(KeyCode.LeftShift) == false && Input.GetKey(KeyCode.RightShift) == false)
+        {
+            inputMagnitude /= 2;
+        }
+        animator.SetFloat("Input Magnitude", inputMagnitude, 0.05f, Time.deltaTime);
+
+        float speed = inputMagnitude * maximumSpeed; //Ensures the player speeds stays capped at the chosen speed variable amount
         movementDirection.Normalize(); //Stops the directional movement increasing speed
 
         ySpeed += Physics.gravity.y * Time.deltaTime; //Getting gravity value and adding it to the Y value every second per frame
@@ -64,21 +72,21 @@ private float? jumpButtonPressedTime;
             characterController.stepOffset = 0;
         }
         
-        Vector3 velocity = movementDirection * magnitude;
+        Vector3 velocity = movementDirection * speed;
         velocity.y = ySpeed;
 
         characterController.Move(velocity * Time.deltaTime); //Time.deltaTime makes sure the player moves at the same speed regardless of framerate
 
         if (movementDirection != Vector3.zero) //Checks if player is moving
         {
-            animator.SetBool("isMoving", true); //If the player is moving, sets the animator bool to true, transitioning from idle to running
+            //animator.SetBool("isMoving", true); //If the player is moving, sets the animator bool to true, transitioning from idle to running
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up); //Rotates the player to the direction of the movement input
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime); //Rotates towards the above direction according to the rotation speed variable
         }
         else
         {
-            animator.SetBool("isMoving", false); //This transitions the running animation back to the idle one
+            //animator.SetBool("isMoving", false); //This transitions the running animation back to the idle one
         }
     }
 }

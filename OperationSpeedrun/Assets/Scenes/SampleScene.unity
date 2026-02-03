@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2070ac7e2b6bf8b4f83ce8d8204b29a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  speed: 5
+  maximumSpeed: 5
   rotationSpeed: 720
   jumpSpeed: 5
   jumpGracePeriod: 0.1
