@@ -13,6 +13,8 @@ private float ySpeed; //Keeps track of the speed in the Y direction & increase t
 private float originalStepOffset;
 private float? lastGroundedTime; //The ? means that it can either contain a float value or no value at all
 private float? jumpButtonPressedTime;
+private bool isJumping;
+private bool isGrounded;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -58,10 +60,17 @@ private float? jumpButtonPressedTime;
         {
             ySpeed = -0.5f; //This helps to "keep" the player on the ground, so that I can constantly press jump and have it work properly
             characterController.stepOffset = originalStepOffset;
+            animator.SetBool("isGrounded", true);
+            isGrounded = true;
+            animator.SetBool("isJumping", false);
+            isJumping = false;
+            animator.SetBool("isFalling", false);
 
             if (Time.time - jumpButtonPressedTime <= jumpGracePeriod)
             {
                 ySpeed = jumpSpeed;
+                animator.SetBool("isJumping", true);
+                isJumping = true;
                 jumpButtonPressedTime = null;
                 lastGroundedTime = null; //Setting these back to null makes sure the player doesnt jump repeatedly during the grace period
             }
@@ -69,6 +78,13 @@ private float? jumpButtonPressedTime;
         else
         {
             characterController.stepOffset = 0; //This helps stopping the player from sticking to walls when going up steps/slopes
+            animator.SetBool("isGrounded", false);
+            isGrounded = false;
+
+            if ((isJumping && ySpeed < 0) || ySpeed < -2)
+            {
+                animator.SetBool("isFalling", true);
+            }
         }
         
 
