@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-public float maximumSpeed;
 public float rotationSpeed;
 public float jumpSpeed;
 public float jumpGracePeriod; //This will be used to allow the player to jump if they press the jump button a fraction too early/late to improve the game feel :)
@@ -29,7 +28,7 @@ private float? jumpButtonPressedTime;
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float verticalInput = Input.GetAxis("Vertical"); //Gets the input values for these keys 
 
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
@@ -38,9 +37,9 @@ private float? jumpButtonPressedTime;
         {
             inputMagnitude /= 2;
         }
-        animator.SetFloat("Input Magnitude", inputMagnitude, 0.05f, Time.deltaTime);
 
-        float speed = inputMagnitude * maximumSpeed; //Ensures the player speeds stays capped at the chosen speed variable amount
+        animator.SetFloat("Input Magnitude", inputMagnitude, 0.05f, Time.deltaTime); //This controls the blending between the animations
+
         movementDirection.Normalize(); //Stops the directional movement increasing speed
 
         ySpeed += Physics.gravity.y * Time.deltaTime; //Getting gravity value and adding it to the Y value every second per frame
@@ -72,10 +71,6 @@ private float? jumpButtonPressedTime;
             characterController.stepOffset = 0;
         }
         
-        Vector3 velocity = movementDirection * speed;
-        velocity.y = ySpeed;
-
-        characterController.Move(velocity * Time.deltaTime); //Time.deltaTime makes sure the player moves at the same speed regardless of framerate
 
         if (movementDirection != Vector3.zero) //Checks if player is moving
         {
@@ -89,4 +84,11 @@ private float? jumpButtonPressedTime;
             //animator.SetBool("isMoving", false); //This transitions the running animation back to the idle one
         }
     }
+    private void OnAnimatorMove()
+        {
+             Vector3 velocity = animator.deltaPosition;
+            velocity.y = ySpeed * Time.deltaTime; //Combines the animation position change with the calculated ySpeed
+
+            characterController.Move(velocity);
+        }
 }

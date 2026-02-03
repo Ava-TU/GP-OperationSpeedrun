@@ -891,15 +891,22 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 711541743}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
   m_Controller: {fileID: 9100000, guid: 5fc2dd5f62975f8439712f17703f7e3a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig8:Hips'\n\tTransform 'mixamorig8:Hips'\n\tTransform
+    'mixamorig8:LeftLeg'\n\tTransform 'mixamorig8:RightHandRing2'\n\tTransform 'mixamorig8:RightHandThumb2'\n\tTransform
+    'mixamorig8:LeftShoulder'\n\tTransform 'mixamorig8:LeftHandRing1'\n\tTransform
+    'mixamorig8:LeftHandThumb2'\n\tTransform 'mixamorig8:RightHandRing3'\n\tTransform
+    'mixamorig8:LeftHandPinky1'\n\tand more ...\n\tFrom animation clip 'Walking'\n\tFrom
+    animation clip 'Running'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
