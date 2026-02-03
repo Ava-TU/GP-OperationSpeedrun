@@ -33,7 +33,7 @@ private float? jumpButtonPressedTime;
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
 
-        if (Input.GetKey(KeyCode.LeftShift) == false && Input.GetKey(KeyCode.RightShift) == false)
+        if (Input.GetKey(KeyCode.LeftShift) == false && Input.GetKey(KeyCode.RightShift) == false) //If the player isn't pressing shift, the input magnitude parameter is set to 0.5, only playing the walking animation
         {
             inputMagnitude /= 2;
         }
@@ -46,12 +46,12 @@ private float? jumpButtonPressedTime;
 
         if (characterController.isGrounded)
         {
-            lastGroundedTime = Time.time;
+            lastGroundedTime = Time.time; //Stores the time starting from when the player was last on the ground
         }
 
         if (Input.GetButtonDown("Jump"))
         {
-            jumpButtonPressedTime = Time.time;
+            jumpButtonPressedTime = Time.time; //Stores the time starting from when the player last pressed the jump button
         }
 
         if (Time.time - lastGroundedTime <= jumpGracePeriod) //Player only jumps if the controller is on the ground
@@ -68,7 +68,7 @@ private float? jumpButtonPressedTime;
         }
         else
         {
-            characterController.stepOffset = 0;
+            characterController.stepOffset = 0; //This helps stopping the player from sticking to walls when going up steps/slopes
         }
         
 
