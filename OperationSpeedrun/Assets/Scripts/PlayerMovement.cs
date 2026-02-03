@@ -6,10 +6,13 @@ public class PlayerMovement : MonoBehaviour
 public float speed;
 public float rotationSpeed;
 public float jumpSpeed;
+public float jumpGracePeriod; //This will be used to allow the player to jump if they press the jump button a fraction too early/late to improve the game feel :)
 
 private CharacterController characterController;
 private float ySpeed; //Keeps track of the speed in the Y direction & increase this when the player jumps and decrease due to the gravity
 private float originalStepOffset;
+private float? lastGroundedTime; //The ? means that it can either contain a float value or no value at all
+private float? jumpButtonPressedTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,14 +33,26 @@ private float originalStepOffset;
 
         ySpeed += Physics.gravity.y * Time.deltaTime; //Getting gravity value and adding it to the Y value every second per frame
 
-        if (characterController.isGrounded) //Player only jumps if the controller is on the ground
+        if (characterController.isGrounded)
+        {
+            lastGroundedTime = Time.time;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpButtonPressedTime = Time.time;
+        }
+
+        if (Time.time - lastGroundedTime <= jumpGracePeriod) //Player only jumps if the controller is on the ground
         {
             ySpeed = -0.5f; //This helps to "keep" the player on the ground, so that I can constantly press jump and have it work properly
             characterController.stepOffset = originalStepOffset;
 
-            if (Input.GetButtonDown("Jump"))
+            if (Time.time - jumpButtonPressedTime <= jumpGracePeriod)
             {
                 ySpeed = jumpSpeed;
+                jumpButtonPressedTime = null;
+                lastGroundedTime = null; //Setting these back to null makes sure the player doesnt jump repeatedly during the grace period
             }
         }
         else
