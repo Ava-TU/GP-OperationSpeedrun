@@ -2,19 +2,28 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    public float rotationSpeed;
 
-public float rotationSpeed;
-public float jumpSpeed;
-public float jumpGracePeriod; //This will be used to allow the player to jump if they press the jump button a fraction too early/late to improve the game feel :)
+    [SerializeField]
+    public float jumpSpeed;
 
-private Animator animator;
-private CharacterController characterController;
-private float ySpeed; //Keeps track of the speed in the Y direction & increase this when the player jumps and decrease due to the gravity
-private float originalStepOffset;
-private float? lastGroundedTime; //The ? means that it can either contain a float value or no value at all
-private float? jumpButtonPressedTime;
-private bool isJumping;
-private bool isGrounded;
+    [SerializeField]
+    public float jumpGracePeriod; //This will be used to allow the player to jump if they press the jump button a fraction too early/late to improve the game feel :)
+
+    private Animator animator;
+    private CharacterController characterController;
+    private float ySpeed; //Keeps track of the speed in the Y direction & increase this when the player jumps and decrease due to the gravity
+    private float originalStepOffset;
+    private float? lastGroundedTime; //The ? means that it can either contain a float value or no value at all
+
+    [SerializeField]
+    private float? jumpButtonPressedTime;
+
+    public Transform cameraTransform;
+
+    private bool isJumping;
+    private bool isGrounded;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -43,6 +52,8 @@ private bool isGrounded;
         animator.SetFloat("Input Magnitude", inputMagnitude, 0.05f, Time.deltaTime); //This controls the blending between the animations
 
         movementDirection.Normalize(); //Stops the directional movement increasing speed
+
+        movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eularAngles.y, Vector3.up) * movementDirection; //This is sync up the players movement direction to the cameras facing direction
 
         ySpeed += Physics.gravity.y * Time.deltaTime; //Getting gravity value and adding it to the Y value every second per frame
 
@@ -101,10 +112,22 @@ private bool isGrounded;
         }
     }
     private void OnAnimatorMove()
-        {
-             Vector3 velocity = animator.deltaPosition;
-            velocity.y = ySpeed * Time.deltaTime; //Combines the animation position change with the calculated ySpeed (Root Motion)
+    {
+        Vector3 velocity = animator.deltaPosition;
+        velocity.y = ySpeed * Time.deltaTime; //Combines the animation position change with the calculated ySpeed (Root Motion)
 
-            characterController.Move(velocity);
+        characterController.Move(velocity);
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus)
+        {
+            Cursor.lockState = CurrentLockMode.Locked; //Hides and locks cursor to center of view
         }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
 }
