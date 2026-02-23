@@ -90,20 +90,20 @@ private bool isGrounded;
 
         if (movementDirection != Vector3.zero) //Checks if player is moving
         {
-            //animator.SetBool("isMoving", true); //If the player is moving, sets the animator bool to true, transitioning from idle to running
+            animator.SetBool("isMoving", true); //If the player is moving, sets the animator bool to true, transitioning from idle to running
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up); //Rotates the player to the direction of the movement input
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime); //Rotates towards the above direction according to the rotation speed variable
         }
         else
         {
-            //animator.SetBool("isMoving", false); //This transitions the running animation back to the idle one
+            animator.SetBool("isMoving", false); //This transitions the running animation back to the idle one
         }
     }
     private void OnAnimatorMove()
         {
              Vector3 velocity = animator.deltaPosition;
-            velocity.y = ySpeed * Time.deltaTime; //Combines the animation position change with the calculated ySpeed
+            velocity.y = ySpeed * Time.deltaTime; //Combines the animation position change with the calculated ySpeed (Root Motion)
 
             characterController.Move(velocity);
         }
