@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
 
         movementDirection.Normalize(); //Stops the directional movement increasing speed
 
-        movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eularAngles.y, Vector3.up) * movementDirection; //This is sync up the players movement direction to the cameras facing direction
+        movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection; //This is sync up the players movement direction to the cameras facing direction
 
         ySpeed += Physics.gravity.y * Time.deltaTime; //Getting gravity value and adding it to the Y value every second per frame
 
@@ -123,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (focus)
         {
-            Cursor.lockState = CurrentLockMode.Locked; //Hides and locks cursor to center of view
+            Cursor.lockState = CursorLockMode.Locked; //Hides and locks cursor to center of view
         }
         else
         {
