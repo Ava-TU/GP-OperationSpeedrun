@@ -3,61 +3,54 @@ using UnityEngine.AI;
 
 public class NPC_Script : MonoBehaviour
 {
-	GameObject player;
+	// Declare a public variable to reference the Main Camera
+	public GameObject mainCamera;
+	public const float PROXIMITY_DISTANCE = 1.0f;
+	private GameObject currentTarget;
+	private WaypointManager waypointManager;
+	const float DECELERATION_FACTOR = 0.6f;
 
-    NavMeshAgent agent;
+	// Now variables needed by FixedUpdate
+	Vector3 source;
+	Vector3 target;
+	Vector3 outputVelocity;
 
-    [SerializeField]
-    LayerMask groundLayer, playerLayer;
+	// And arrive
+	Vector3 directionToTarget;
+	Vector3 velocityToTarget;
+	float distanceToTarget;
+	float speed;
 
-    //For Patrol
-    Vector3 destPoint;
-    bool walkPointSet;
+	// Use this for initialisation
+	void Awake ()
+	{
+		// Get the WaypointManager from the camera and then the first object
+		waypointManager = mainCamera.GetComponent<WaypointManager> ();
+		currentTarget = waypointManager.NextWaypoint (null);
+	}
 
-    [SerializeField]
-    float walkRange;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        player = GameObject.Find("Player");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Patrol();
-    }
-
-    void Patrol()
-    {
-        if (!walkPointSet)
-        {
-            SearchForDest();
-        }
-
-        if (walkPointSet)
-        {
-            agent.SetDestination(destPoint); //The agent will navigate towards the destination point given
-        }
-
-        if (Vector3.Distance(transform.position, destPoint) < 10) //If the distance between the enemy position and point is less than 10 units:
-        {
-            walkPointSet = false; //It sets the walk point bool to false and picks a new destination
-        }
-    }
-
-    void SearchForDest()
-    {
-        float z = Random.Range(-walkRange, walkRange);
-        float x = Random.Range(-walkRange, walkRange);
-
-        destPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z); //Picks random new position
-
-        if(Physics.Raycast(destPoint, Vector3.down, groundLayer)) //Checks if its inside the NavMesh area before applying new destination
-        {
-            walkPointSet = true;
-        }
-    }
+	void FixedUpdate ()
+	{
+		source = transform.position;
+		target = currentTarget.transform.position;
+		outputVelocity = Arrive (source, target);
+		GetComponent<Rigidbody> ().AddForce (outputVelocity, ForceMode.VelocityChange);
+		
+		// Check the distance from object to target, and make query
+		// When it moves within the PROXIMITY_DISTANCE
+		if (Vector3.Distance (source, target) < PROXIMITY_DISTANCE) 
+		{
+			currentTarget = waypointManager.NextWaypoint (currentTarget);
+		}
+	}
+	
+	// Arrive function
+	private Vector3 Arrive (Vector3 source, Vector3 target)
+	{
+		distanceToTarget = Vector3.Distance (source, target);
+		directionToTarget = Vector3.Normalize (target - source);
+		speed = distanceToTarget / DECELERATION_FACTOR;
+		velocityToTarget = speed * directionToTarget;
+		return velocityToTarget - GetComponent<Rigidbody> ().linearVelocity;
+	}
 }
