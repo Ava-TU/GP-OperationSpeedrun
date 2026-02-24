@@ -147,6 +147,11 @@ public class EnemyAI_Script : MonoBehaviour
         {
             print("HIT!");
             player.GetComponent<PlayerScript>().health -= 1;
+
+            if (player.GetComponent<PlayerScript>().health <= 0)
+            {
+                DisableAttack();
+            }
         }
     }
 }
