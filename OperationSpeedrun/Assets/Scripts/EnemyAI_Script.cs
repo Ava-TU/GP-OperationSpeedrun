@@ -75,9 +75,9 @@ public class EnemyAI_Script : MonoBehaviour
 
             enemyStateText.text = "Enemy State = Attack";
         }
-        else //Add in if player health is <= 0
+        if (player.GetComponent<PlayerScript>().health <= 0)
         {
-            //enemyStateText.text = "Enemy State = Dance";
+            enemyStateText.text = "Enemy State = Dance";
         }
     }
 
