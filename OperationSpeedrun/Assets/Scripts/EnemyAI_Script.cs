@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 public class EnemyAI_Script : MonoBehaviour
 {
@@ -18,6 +17,11 @@ public class EnemyAI_Script : MonoBehaviour
     [SerializeField]
     float walkRange;
 
+    //States
+    [SerializeField]
+    float sightRange, attackRange;
+    bool playerInSight, playerInAttackRange;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,7 +32,31 @@ public class EnemyAI_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Patrol();
+        playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer); //Checks if the player is on the right layer, if its in the sights range and if the position is in range
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
+
+        if (!playerInSight && !playerInAttackRange)
+        {
+            Patrol(); //Switches to the Patrol State
+        }
+        if (playerInSight && !playerInAttackRange)
+        {
+            Chase(); //Switches to the Chase state
+        }
+        if (playerInSight && playerInAttackRange)
+        {
+            Attack(); //Switches to the Attack state
+        }
+    }
+
+    void Chase()
+    {
+        agent.SetDestination(player.transform.position); //Causes the agent to go towards the players position
+    }
+
+    void Attack()
+    {
+
     }
 
     void Patrol()
