@@ -13,6 +13,8 @@ public class EnemyAI_Script : MonoBehaviour
 
     BoxCollider boxCollider;
 
+    private Animator animator;
+
     [SerializeField]
     LayerMask groundLayer, playerLayer;
 
@@ -40,6 +42,8 @@ public class EnemyAI_Script : MonoBehaviour
         player = GameObject.Find("Player");
         //playerHealth = GetComponent<PlayerScript>();
         boxCollider = GetComponent<BoxCollider>();
+
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -77,7 +81,12 @@ public class EnemyAI_Script : MonoBehaviour
         }
         if (player.GetComponent<PlayerScript>().health <= 0)
         {
-            enemyStateText.text = "Enemy State = Dance";
+            VictoryDance();
+            isPatrol = false;
+            isChase = false;
+            isAttack = false;
+
+            agent.enabled = false;
         }
     }
 
@@ -93,7 +102,8 @@ public class EnemyAI_Script : MonoBehaviour
 
     void VictoryDance()
     {
-        //This will be for when the player dies, the enemy will do a dance animation
+        enemyStateText.text = "Enemy State = Dance";
+        animator.SetBool("playerDead", true);
     }
 
     void Patrol()
