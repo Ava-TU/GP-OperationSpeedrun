@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 364139932}
   - component: {fileID: 364139931}
   - component: {fileID: 364139930}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Wall (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1905,6 +1905,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874fe76ba22da704499a164359c33270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC_Script
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  walkRange: 0
 --- !u!54 &896506473
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1941,12 +1948,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 896506466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a48e8d7435778384b8c9e8313d7de5b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 874fe76ba22da704499a164359c33270, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAI_Script
+  m_EditorClassIdentifier: Assembly-CSharp::NPC_Script
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 8
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2464,7 +2471,7 @@ GameObject:
   - component: {fileID: 1243295527}
   - component: {fileID: 1243295526}
   - component: {fileID: 1243295525}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Wall (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2576,7 +2583,7 @@ GameObject:
   - component: {fileID: 1289270327}
   - component: {fileID: 1289270326}
   - component: {fileID: 1289270325}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2688,7 +2695,7 @@ GameObject:
   - component: {fileID: 1402893453}
   - component: {fileID: 1402893452}
   - component: {fileID: 1402893451}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Wall (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2800,7 +2807,7 @@ GameObject:
   - component: {fileID: 1423082994}
   - component: {fileID: 1423082993}
   - component: {fileID: 1423082992}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Wall (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2912,7 +2919,7 @@ GameObject:
   - component: {fileID: 1673170595}
   - component: {fileID: 1673170594}
   - component: {fileID: 1673170593}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3024,6 +3031,7 @@ GameObject:
   - component: {fileID: 1827926140}
   - component: {fileID: 1827926139}
   - component: {fileID: 1827926138}
+  - component: {fileID: 1827926142}
   m_Layer: 3
   m_Name: TestingGround
   m_TagString: Untagged
@@ -3124,6 +3132,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1827926142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827926137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: d9145e2774826f741bb60fccfd9242c9, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &2059879265
 GameObject:
   m_ObjectHideFlags: 0

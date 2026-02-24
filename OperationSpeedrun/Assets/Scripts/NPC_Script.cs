@@ -1,34 +1,63 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPC_Script : MonoBehaviour
 {
-	// Update is called once per frame
-	void FixedUpdate ()
-	{
-		// Test the velocity of the collider and only move it when it is slowing down
-		Vector3 ballSpeed = GetComponent<Rigidbody> ().linearVelocity;
-		if (ballSpeed.magnitude < 4.5) 
-		{
-			// Take code from lecture 6 for random direction switching
-			int myDirection = Random.Range (0, 4);
-			Vector3 myDirectionVector = new Vector3 ();
-			switch (myDirection) 
-			{
-				case 0:
-				myDirectionVector = Vector3.forward;
-				break;//now break the switch
-				case 1:
-				myDirectionVector = Vector3.back;
-				break;
-				case 2:
-				myDirectionVector = Vector3.left;
-				break;
-				default:
-				myDirectionVector = Vector3.right;
-				break;
-			}
-			// Add force to the sphere to move it at random, use velocityChange
-			GetComponent<Rigidbody> ().AddForce (myDirectionVector * 5, ForceMode.VelocityChange);
-		}
-	}
+	GameObject player;
+
+    NavMeshAgent agent;
+
+    [SerializeField]
+    LayerMask groundLayer, playerLayer;
+
+    //For Patrol
+    Vector3 destPoint;
+    bool walkPointSet;
+
+    [SerializeField]
+    float walkRange;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        player = GameObject.Find("Player");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Patrol();
+    }
+
+    void Patrol()
+    {
+        if (!walkPointSet)
+        {
+            SearchForDest();
+        }
+
+        if (walkPointSet)
+        {
+            agent.SetDestination(destPoint); //The agent will navigate towards the destination point given
+        }
+
+        if (Vector3.Distance(transform.position, destPoint) < 10) //If the distance between the enemy position and point is less than 10 units:
+        {
+            walkPointSet = false; //It sets the walk point bool to false and picks a new destination
+        }
+    }
+
+    void SearchForDest()
+    {
+        float z = Random.Range(-walkRange, walkRange);
+        float x = Random.Range(-walkRange, walkRange);
+
+        destPoint = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z); //Picks random new position
+
+        if(Physics.Raycast(destPoint, Vector3.down, groundLayer)) //Checks if its inside the NavMesh area before applying new destination
+        {
+            walkPointSet = true;
+        }
+    }
 }
