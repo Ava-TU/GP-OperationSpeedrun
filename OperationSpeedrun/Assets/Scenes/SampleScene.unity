@@ -3311,7 +3311,7 @@ GameObject:
   - component: {fileID: 1041158157}
   - component: {fileID: 1041158156}
   - component: {fileID: 1041158155}
-  - component: {fileID: 1041158154}
+  - component: {fileID: 1041158161}
   m_Layer: 0
   m_Name: NPC 2
   m_TagString: Untagged
@@ -3319,19 +3319,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1041158154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041158153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 874fe76ba22da704499a164359c33270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPC_Script
-  mainCamera: {fileID: 330585543}
 --- !u!54 &1041158155
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3476,6 +3463,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1041158161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041158153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dc5f542c743284f9830ab5451e6fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PatrolScriptOnly
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  walkRange: 15
 --- !u!1 &1116378261
 GameObject:
   m_ObjectHideFlags: 0
