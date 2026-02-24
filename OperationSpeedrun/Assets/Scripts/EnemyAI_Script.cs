@@ -38,6 +38,7 @@ public class EnemyAI_Script : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find("Player");
+        //playerHealth = GetComponent<PlayerScript>();
         boxCollider = GetComponent<BoxCollider>();
     }
 
@@ -127,6 +128,7 @@ public class EnemyAI_Script : MonoBehaviour
     }
 
     //These will enable/disable the enemy attack collider so it doesnt kill the player too quickly
+    //This would be for the attacking animation
     void EnableAttack()
     {
         boxCollider.enabled = true;
@@ -144,6 +146,7 @@ public class EnemyAI_Script : MonoBehaviour
         if (player != null)
         {
             print("HIT!");
+            player.GetComponent<PlayerScript>().health -= 1;
         }
     }
 }

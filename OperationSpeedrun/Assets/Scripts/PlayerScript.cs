@@ -4,8 +4,7 @@ using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField]
-    int health;
+    public int health;
 
     [SerializeField]
     TMP_Text healthDisplay;
