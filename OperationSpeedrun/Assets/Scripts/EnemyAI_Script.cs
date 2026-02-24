@@ -11,6 +11,8 @@ public class EnemyAI_Script : MonoBehaviour
 
     public TMP_Text enemyStateText;
 
+    BoxCollider boxCollider;
+
     [SerializeField]
     LayerMask groundLayer, playerLayer;
 
@@ -36,6 +38,7 @@ public class EnemyAI_Script : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.Find("Player");
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -71,6 +74,10 @@ public class EnemyAI_Script : MonoBehaviour
 
             enemyStateText.text = "Enemy State = Attack";
         }
+        else //Add in if player health is <= 0
+        {
+            //enemyStateText.text = "Enemy State = Dance";
+        }
     }
 
     void Chase()
@@ -80,7 +87,12 @@ public class EnemyAI_Script : MonoBehaviour
 
     void Attack()
     {
+        agent.SetDestination(transform.position);
+    }
 
+    void VictoryDance()
+    {
+        //This will be for when the player dies, the enemy will do a dance animation
     }
 
     void Patrol()
@@ -111,6 +123,27 @@ public class EnemyAI_Script : MonoBehaviour
         if(Physics.Raycast(destPoint, Vector3.down, groundLayer)) //Checks if its inside the NavMesh area before applying new destination
         {
             walkPointSet = true;
+        }
+    }
+
+    //These will enable/disable the enemy attack collider so it doesnt kill the player too quickly
+    void EnableAttack()
+    {
+        boxCollider.enabled = true;
+    }
+
+    void DisableAttack()
+    {
+        boxCollider.enabled = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var player = other.GetComponent<PlayerMovement>();
+
+        if (player != null)
+        {
+            print("HIT!");
         }
     }
 }
