@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthDisplay.text = "Health:" + health;
+        healthDisplay.text = "Health: " + health;
 
         if (health <= 0)
         {

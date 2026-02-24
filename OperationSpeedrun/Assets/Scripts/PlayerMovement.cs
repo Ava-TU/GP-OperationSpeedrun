@@ -123,11 +123,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (focus)
         {
-            //Cursor.lockState = CursorLockMode.Locked; //Hides and locks cursor to center of view
+            Cursor.lockState = CursorLockMode.Locked; //Hides and locks cursor to center of view
         }
         else
         {
-            //Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

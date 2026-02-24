@@ -32,12 +32,12 @@ public class PatrolScriptOnly : MonoBehaviour
 
     void Patrol()
     {
-        if (!walkPointSet)
+        if (!walkPointSet) //If theres no walk point set:
         {
             SearchForDest();
         }
 
-        if (walkPointSet)
+        if (walkPointSet) //If walk point is set
         {
             agent.SetDestination(destPoint); //The agent will navigate towards the destination point given
         }
