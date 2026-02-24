@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using TMPro;
 
 public class EnemyAI_Script : MonoBehaviour
 {
     GameObject player;
 
     NavMeshAgent agent;
+
+    public TMP_Text enemyStateText;
 
     [SerializeField]
     LayerMask groundLayer, playerLayer;
@@ -21,6 +25,11 @@ public class EnemyAI_Script : MonoBehaviour
     [SerializeField]
     float sightRange, attackRange;
     bool playerInSight, playerInAttackRange;
+
+    [Header("States")]
+    public bool isPatrol;
+    public bool isChase;
+    public bool isAttack;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,14 +47,29 @@ public class EnemyAI_Script : MonoBehaviour
         if (!playerInSight && !playerInAttackRange)
         {
             Patrol(); //Switches to the Patrol State
+            isPatrol = true;
+            isChase = false;
+            isAttack = false;
+
+            enemyStateText.text = "Enemy State = Patrol";
         }
         if (playerInSight && !playerInAttackRange)
         {
             Chase(); //Switches to the Chase state
+            isPatrol = false;
+            isChase = true;
+            isAttack = false;
+
+            enemyStateText.text = "Enemy State = Chase";
         }
         if (playerInSight && playerInAttackRange)
         {
             Attack(); //Switches to the Attack state
+            isPatrol = false;
+            isChase = false;
+            isAttack = true;
+
+            enemyStateText.text = "Enemy State = Attack";
         }
     }
 
