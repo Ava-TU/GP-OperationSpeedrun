@@ -11,9 +11,9 @@ public class EnemyAI_Script : MonoBehaviour
 
     public TMP_Text enemyStateText;
 
-    BoxCollider boxCollider;
+    BoxCollider boxCollider; //The attack collider box
 
-    private Animator animator;
+    private Animator animator; //To play the animations
 
     [SerializeField]
     LayerMask groundLayer, playerLayer;
@@ -86,7 +86,7 @@ public class EnemyAI_Script : MonoBehaviour
             isChase = false;
             isAttack = false;
 
-            agent.enabled = false;
+            agent.enabled = false; //Non permanent fix to stop enemy from chasing player & moving
         }
     }
 
@@ -97,18 +97,18 @@ public class EnemyAI_Script : MonoBehaviour
 
     void Attack()
     {
-        agent.SetDestination(transform.position);
+        agent.SetDestination(transform.position); //Sets the destination to enemys current position, stopping them from moving 
     }
 
     void VictoryDance()
     {
         enemyStateText.text = "Enemy State = Dance";
-        animator.SetBool("playerDead", true);
+        animator.SetBool("playerDead", true); //This triggers the dance animation for the enemy
     }
 
     void Patrol()
     {
-        if (!walkPointSet)
+        if (!walkPointSet) //If theres no walk point set:
         {
             SearchForDest();
         }
@@ -124,7 +124,7 @@ public class EnemyAI_Script : MonoBehaviour
         }
     }
 
-    void SearchForDest()
+    void SearchForDest() //This function will randomly choose a destination for the enemy on the nav mesh it's positioned on
     {
         float z = Random.Range(-walkRange, walkRange);
         float x = Random.Range(-walkRange, walkRange);
@@ -149,14 +149,14 @@ public class EnemyAI_Script : MonoBehaviour
         boxCollider.enabled = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //Checks if the player is within the enemys range
     {
         var player = other.GetComponent<PlayerMovement>();
 
-        if (player != null)
+        if (player != null) //If it is the player and not null/empty
         {
             print("HIT!");
-            player.GetComponent<PlayerScript>().health -= 1;
+            player.GetComponent<PlayerScript>().health -= 1; //Does 1 damage to player health
 
             if (player.GetComponent<PlayerScript>().health <= 0)
             {
