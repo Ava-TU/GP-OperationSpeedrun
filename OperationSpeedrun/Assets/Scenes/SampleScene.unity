@@ -5022,7 +5022,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Random
+  m_text: 'New
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6469,7 +6471,7 @@ GameObject:
   - component: {fileID: 2048574953}
   - component: {fileID: 2048574952}
   m_Layer: 5
-  m_Name: Delete
+  m_Name: NewGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6541,7 +6543,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1688718732}
         m_TargetAssemblyTypeName: GameManagerScript, Assembly-CSharp
-        m_MethodName: RandomiseGameStatus
+        m_MethodName: NewGameStatus
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

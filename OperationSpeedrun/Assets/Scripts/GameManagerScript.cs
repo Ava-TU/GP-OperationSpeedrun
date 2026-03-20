@@ -12,6 +12,7 @@ public struct GameStatus
     public string playerName;
     public int currentLevel;
     public string spawnPoint;
+    public int currentTime;
     public int health;
     public int stars;
 }
@@ -29,22 +30,21 @@ public class GameManagerScript : MonoBehaviour
         message += "Player Name: " + gameStatus.playerName + "\n";
         message += "Current Level: " + gameStatus.currentLevel + "\n";
         message += "Spawn Point: " + gameStatus.spawnPoint + "\n";
+        message += "Current Time: " + gameStatus.currentTime + "\n";
         message += "Health: " + gameStatus.health + "\n";
         message += "Stars: " + gameStatus.stars + "\n";
         GetComponent<TMP_Text>().text = message;
     }
     //this function emulates a random game event that changes the player's statistics
-    public void RandomiseGameStatus()
+    public void NewGameStatus()
     {
-        //the namespace was specified to avoid conflicts (System.Random vs UnityEngine.Random)
-        gameStatus.stars += (int)Mathf.Floor(UnityEngine.Random.Range(20.0f, 100.0f));
-        //simulates a level up
-        if (gameStatus.stars > 100)
-        {
-            gameStatus.currentLevel++;
-            gameStatus.health += 10;
-            gameStatus.stars = 0;
-        }
+        //this will create a new game
+        gameStatus.playerName = "Subject 17";
+        gameStatus.currentLevel = 1;
+        gameStatus.spawnPoint = "Tutorial";//reference to a game object
+        gameStatus.currentTime = 0;
+        gameStatus.health = 5;
+        gameStatus.stars = 0;
     }
 
     //this function loads a saving file if found
@@ -65,6 +65,7 @@ public class GameManagerScript : MonoBehaviour
             gameStatus.playerName = "Subject 17";
             gameStatus.currentLevel = 1;
             gameStatus.spawnPoint = "Tutorial";//reference to a game object
+            gameStatus.currentTime = 0;
             gameStatus.health = 5;
             gameStatus.stars = 0;
             Debug.Log("File not found");
