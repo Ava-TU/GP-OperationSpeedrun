@@ -76,6 +76,7 @@ public class GameManagerScript : MonoBehaviour
             gameStatus = JsonUtility.FromJson<GameStatus>(loadedJson);
             player.health = gameStatus.playerHealth;
             timer.previousTime = gameStatus.previousTime;
+            timer.bestTime = gameStatus.bestTime;
             GameObject.Find("Player").transform.position = gameStatus.playerPosition;
 
             Debug.Log("File loaded successfully");
@@ -96,6 +97,7 @@ public class GameManagerScript : MonoBehaviour
         Debug.Log("File created and saved");
         gameStatus.playerPosition = GameObject.Find("Player").transform.position;
         gameStatus.previousTime = timer.previousTime;
+        gameStatus.bestTime = timer.bestTime;
 
     }
 

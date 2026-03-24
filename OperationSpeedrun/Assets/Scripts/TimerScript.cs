@@ -18,6 +18,12 @@ public class TimerScript : MonoBehaviour
 
     bool isRunning = false;
 
+    void Start()
+    {
+        previousTime = 0;
+        bestTime = 0;
+    }
+
     // Update is called once per frame
     void Update()
     {
