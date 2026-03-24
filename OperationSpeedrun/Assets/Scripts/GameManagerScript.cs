@@ -5,6 +5,7 @@ using System.IO;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+
 //game status data structure
 [Serializable]
 public struct GameStatus
@@ -16,14 +17,15 @@ public struct GameStatus
     public int health;
     public int stars;
 }
+
 public class GameManagerScript : MonoBehaviour
 {
-    GameStatus gameStatus;
+    public GameStatus gameStatus;
     string filePath;
     const string FILE_NAME = "SaveStatus.json";
     //build our UI controls- a simple label
 
-    void ShowStatus()
+    public void ShowStatus()
     {
         //building the formatted string to be shown to the user
         string message = "";
@@ -80,9 +82,10 @@ public class GameManagerScript : MonoBehaviour
         //write a text file containing the string value as simple text
         File.WriteAllText(filePath + "/" + FILE_NAME, gameStatusJson);
         Debug.Log("File created and saved");
+
     }
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         //retrieving saving location
         filePath = Application.persistentDataPath;
@@ -92,7 +95,7 @@ public class GameManagerScript : MonoBehaviour
         LoadGameStatus();
     }
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         ShowStatus();
     }

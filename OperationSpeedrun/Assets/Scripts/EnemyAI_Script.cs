@@ -16,6 +16,11 @@ public class EnemyAI_Script : MonoBehaviour
     private Animator animator; //To play the animations
 
     [SerializeField]
+    GameManagerScript gm;
+    
+
+    [SerializeField]
+    
     LayerMask groundLayer, playerLayer;
 
     //For Patrol
@@ -44,6 +49,10 @@ public class EnemyAI_Script : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
 
         animator = GetComponent<Animator>();
+
+        gm.Start();
+
+
     }
 
     // Update is called once per frame
@@ -157,6 +166,7 @@ public class EnemyAI_Script : MonoBehaviour
         {
             print("HIT!");
             player.GetComponent<PlayerScript>().health -= 1; //Does 1 damage to player health
+            gm.gameStatus.health -= 1;
 
             if (player.GetComponent<PlayerScript>().health <= 0)
             {
