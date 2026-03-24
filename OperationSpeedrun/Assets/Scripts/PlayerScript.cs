@@ -12,7 +12,13 @@ public class PlayerScript : MonoBehaviour
     public TMP_Text healthDisplay;
 
     [SerializeField]
+    public TMP_Text gameStatusUI;
+    int numberStars = 10;
+
+    [SerializeField]
     GameManagerScript gm;
+
+    public SO_GameManager gmSO;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,6 +26,13 @@ public class PlayerScript : MonoBehaviour
         health = maxHealth;
 
         gm.Start();
+
+        UpdateSceneFromManager();
+    }
+
+    void Awake()
+    {
+
     }
 
     // Update is called once per frame
@@ -40,5 +53,49 @@ public class PlayerScript : MonoBehaviour
                 gm.gameStatus.stars += 1;
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        //Debug.Log (gmSO.gameStatus.playerHealth);
+
+        //check current health level to determine whether player must die!
+        if (gmSO.gameStatus.playerHealth <= 0)
+        {
+            gmSO.resetGame();
+        }
+
+        if (gmSO.gameStatus.starsCollected >= numberStars)
+        {
+            // Reset Gamemanager variuables
+            gmSO.resetGame();
+
+        }
+
+        gameStatusUI.text = gmSO.UpdateStatus();
+    }
+
+    void OnApplicationQuit()
+    {
+
+        // Save Scene Data to the GameManager
+        SaveFromSceneToManager();
+
+        //Debug.Log("OnApplicationQuit Called");
+    }
+
+     // Save data from the scene to the manager
+    void SaveFromSceneToManager()
+    {
+
+        // Update Player Position in the GameManager with the position of the Player in the scene
+        // This will be stored on the JSON file when the application quits
+        gmSO.gameStatus.playerPosition = GameObject.Find("Player").transform.position;
+
+    }
+
+     void UpdateSceneFromManager()
+    {
+        GameObject.Find("Player").transform.position = gmSO.gameStatus.playerPosition;
     }
 }
