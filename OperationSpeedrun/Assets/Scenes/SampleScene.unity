@@ -1141,7 +1141,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13870122, y: -0.000000011273448, z: 0.0000000015789022, w: 0.9903343}
-  m_LocalPosition: {x: -0.013108985, y: 3.8500006, z: -6.934142}
+  m_LocalPosition: {x: 0, y: 3, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1937,15 +1937,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.013108985
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8500007
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.065857686
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2106,6 +2106,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1394855428349472772, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_Layer
@@ -3520,7 +3524,7 @@ Transform:
   m_GameObject: {fileID: 1011405168}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13870122, y: -0.000000011273449, z: 0.0000000015789025, w: 0.9903343}
-  m_LocalPosition: {x: -0.013108985, y: 3.8500006, z: -6.934142}
+  m_LocalPosition: {x: 0, y: 3, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5506,7 +5510,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -745, y: 0}
+  m_AnchoredPosition: {x: -832, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1688718730
@@ -5595,7 +5599,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -396.77295, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5624,10 +5628,11 @@ MonoBehaviour:
   gameStatus:
     playerName: 
     currentLevel: 0
-    spawnPoint: 
     currentTime: 0
+    bestTime: 0
     playerHealth: 0
     stars: 0
+    playerPosition: {x: 0, y: 0, z: 0}
   player: {fileID: 711541750}
 --- !u!1 &1725264031
 GameObject:

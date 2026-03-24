@@ -55,6 +55,15 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter(Collider col)
+        {
+            if (col.gameObject.name == "Star")
+            {
+                Destroy(col.gameObject);
+                gm.gameStatus.stars += 1;
+            }
+        }
+
     private void FixedUpdate()
     {
         //Debug.Log (gmSO.gameStatus.playerHealth);
@@ -90,12 +99,11 @@ public class PlayerScript : MonoBehaviour
 
         // Update Player Position in the GameManager with the position of the Player in the scene
         // This will be stored on the JSON file when the application quits
-        gmSO.gameStatus.playerPosition = GameObject.Find("Player").transform.position;
 
     }
 
      void UpdateSceneFromManager()
     {
-        GameObject.Find("Player").transform.position = gmSO.gameStatus.playerPosition;
+       
     }
 }

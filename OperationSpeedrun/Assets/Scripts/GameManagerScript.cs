@@ -12,10 +12,11 @@ public struct GameStatus
 {
     public string playerName;
     public int currentLevel;
-    public string spawnPoint;
-    public int currentTime;
+    public float currentTime;
+    public float bestTime;
     public int playerHealth;
     public int stars;
+    public Vector3 playerPosition;
 }
 
 public class GameManagerScript : MonoBehaviour
@@ -34,10 +35,11 @@ public class GameManagerScript : MonoBehaviour
         string message = "";
         message += "Player Name: " + gameStatus.playerName + "\n";
         message += "Current Level: " + gameStatus.currentLevel + "\n";
-        message += "Spawn Point: " + gameStatus.spawnPoint + "\n";
         message += "Current Time: " + gameStatus.currentTime + "\n";
+        message += "Best Time: " + gameStatus.bestTime + "\n";
         message += "Player Health: " + gameStatus.playerHealth + "\n";
         message += "Stars: " + gameStatus.stars + "\n";
+        message += "Player Position: " + gameStatus.playerPosition + "\n";
         GetComponent<TMP_Text>().text = message;
     }
     //this function emulates a random game event that changes the player's statistics
@@ -46,11 +48,17 @@ public class GameManagerScript : MonoBehaviour
         //this will create a new game
         gameStatus.playerName = "Subject 17";
         gameStatus.currentLevel = 1;
-        gameStatus.spawnPoint = "Tutorial";//reference to a game object
         gameStatus.currentTime = 0;
+        gameStatus.bestTime = 20;
         gameStatus.playerHealth = player.GetComponent<PlayerScript>().maxHealth;
         player.health = gameStatus.playerHealth;
+        gameStatus.playerPosition = new Vector3(0, 0, 0);
+        GameObject.Find("Player").transform.position = gameStatus.playerPosition;
         gameStatus.stars = 0;
+
+        SaveGameStatus();
+        
+ 
     }
 
     //this function loads a saving file if found
@@ -64,19 +72,13 @@ public class GameManagerScript : MonoBehaviour
             //deserialise the loaded string into a GameStatus struct
             gameStatus = JsonUtility.FromJson<GameStatus>(loadedJson);
             player.health = gameStatus.playerHealth;
+            GameObject.Find("Player").transform.position = gameStatus.playerPosition;
+
             Debug.Log("File loaded successfully");
         }
         else
         {
-            //initilise a new game status
-            gameStatus.playerName = "Subject 17";
-            gameStatus.currentLevel = 1;
-            gameStatus.spawnPoint = "Tutorial";//reference to a game object
-            gameStatus.currentTime = 0;
-            gameStatus.playerHealth = player.GetComponent<PlayerScript>().maxHealth;
-            player.health = gameStatus.playerHealth;
-            gameStatus.stars = 0;
-            Debug.Log("File not found");
+            
         }
     }
 
@@ -88,11 +90,14 @@ public class GameManagerScript : MonoBehaviour
         //write a text file containing the string value as simple text
         File.WriteAllText(filePath + "/" + FILE_NAME, gameStatusJson);
         Debug.Log("File created and saved");
+        gameStatus.playerPosition = GameObject.Find("Player").transform.position;
 
     }
+
     // Use this for initialization
     public void Start()
     {
+
         //retrieving saving location
         filePath = Application.persistentDataPath;
         gameStatus = new GameStatus();

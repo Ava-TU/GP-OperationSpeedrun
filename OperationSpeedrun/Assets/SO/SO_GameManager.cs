@@ -8,7 +8,6 @@ public struct GameStatus_SO
     public int currentLevel;
     public int playerHealth;
     public int starsCollected;
-    public Vector3 playerPosition;
 }
 
 // Create asset menu item called GameManager
@@ -47,17 +46,15 @@ public class SO_GameManager : ScriptableObject
     public void resetGame()
     {
         //initilise a new game status
-        gameStatus.playerName = "Walter";
+        gameStatus.playerName = "Subject 17";
         gameStatus.currentLevel = 1;
         gameStatus.playerHealth = 5;
         gameStatus.starsCollected = 0;
-        gameStatus.playerPosition = new Vector3(0, 0, 0);
        
        
 
     }
 
-    //build our UI controls- a simple label
     public string UpdateStatus()
     {
         //building the formatted string to be shown to the user
