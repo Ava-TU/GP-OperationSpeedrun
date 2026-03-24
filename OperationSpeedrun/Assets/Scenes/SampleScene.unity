@@ -966,6 +966,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TimerScript
   timerText: {fileID: 1209883761}
   time: 0
+  startTimer: 0
+  fastTime: 0
+  previousTime: 0
 --- !u!1 &307973451
 GameObject:
   m_ObjectHideFlags: 0
@@ -6109,12 +6112,13 @@ MonoBehaviour:
   gameStatus:
     playerName: 
     currentLevel: 0
-    currentTime: 0
+    previousTime: 0
     bestTime: 0
     playerHealth: 0
     stars: 0
     playerPosition: {x: 0, y: 0, z: 0}
   player: {fileID: 711541750}
+  timer: {fileID: 305457060}
 --- !u!1 &1725264031
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,13 +9,14 @@ public class TimerScript : MonoBehaviour
     [SerializeField]
     float time;
 
-    bool isRunning = false;
+    public float startTimer = 0;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    public float fastTime;
+    [SerializeField]
+    public float previousTime;
+
+    bool isRunning = false;
 
     // Update is called once per frame
     void Update()
@@ -26,15 +27,35 @@ public class TimerScript : MonoBehaviour
 
             timerText.text = time.ToString();
         }
+
+
+        if (time < fastTime)
+        {
+            fastTime = time;
+        }
+        
     }
 
     public void StartTimer()
     {
         isRunning = true;
+
+        time = 0;
     }
 
     public void StopTimer()
     {
         isRunning = false;
+        
+        if (time < fastTime)
+        {
+            fastTime = time;
+        }
+        else
+        {
+            previousTime = time;
+        }
+
+        
     }
 }

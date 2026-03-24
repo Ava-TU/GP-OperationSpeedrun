@@ -12,7 +12,7 @@ public struct GameStatus
 {
     public string playerName;
     public int currentLevel;
-    public float currentTime;
+    public float previousTime;
     public float bestTime;
     public int playerHealth;
     public int stars;
@@ -29,13 +29,16 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField]
     public PlayerScript player;
 
+    [SerializeField]
+    public TimerScript timer;
+
     public void ShowStatus()
     {
         //building the formatted string to be shown to the user
         string message = "";
         message += "Player Name: " + gameStatus.playerName + "\n";
         message += "Current Level: " + gameStatus.currentLevel + "\n";
-        message += "Current Time: " + gameStatus.currentTime + "\n";
+        message += "Previous Time: " + gameStatus.previousTime + "\n";
         message += "Best Time: " + gameStatus.bestTime + "\n";
         message += "Player Health: " + gameStatus.playerHealth + "\n";
         message += "Stars: " + gameStatus.stars + "\n";
@@ -48,8 +51,8 @@ public class GameManagerScript : MonoBehaviour
         //this will create a new game
         gameStatus.playerName = "Subject 17";
         gameStatus.currentLevel = 1;
-        gameStatus.currentTime = 0;
-        gameStatus.bestTime = 20;
+        gameStatus.previousTime = 0;
+        gameStatus.bestTime = 0;
         gameStatus.playerHealth = player.GetComponent<PlayerScript>().maxHealth;
         player.health = gameStatus.playerHealth;
         gameStatus.playerPosition = new Vector3(0, 0, 0);
@@ -72,6 +75,7 @@ public class GameManagerScript : MonoBehaviour
             //deserialise the loaded string into a GameStatus struct
             gameStatus = JsonUtility.FromJson<GameStatus>(loadedJson);
             player.health = gameStatus.playerHealth;
+            timer.previousTime = gameStatus.previousTime;
             GameObject.Find("Player").transform.position = gameStatus.playerPosition;
 
             Debug.Log("File loaded successfully");
@@ -91,6 +95,7 @@ public class GameManagerScript : MonoBehaviour
         File.WriteAllText(filePath + "/" + FILE_NAME, gameStatusJson);
         Debug.Log("File created and saved");
         gameStatus.playerPosition = GameObject.Find("Player").transform.position;
+        gameStatus.previousTime = timer.previousTime;
 
     }
 
