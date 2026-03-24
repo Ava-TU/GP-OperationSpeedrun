@@ -5,10 +5,11 @@ using TMPro;
 public class PlayerScript : MonoBehaviour
 {
     public int health;
+    public int maxHealth;
    
 
     [SerializeField]
-    TMP_Text healthDisplay;
+    public TMP_Text healthDisplay;
 
     [SerializeField]
     GameManagerScript gm;
@@ -16,7 +17,7 @@ public class PlayerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        health = 5;
+        health = maxHealth;
 
         gm.Start();
     }
@@ -24,7 +25,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthDisplay.text = "Health: " + health;
+        healthDisplay.text = "Health: " + gm.gameStatus.playerHealth;
 
         if (health <= 0)
         {

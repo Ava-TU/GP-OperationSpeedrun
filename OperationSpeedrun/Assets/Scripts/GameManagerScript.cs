@@ -14,7 +14,7 @@ public struct GameStatus
     public int currentLevel;
     public string spawnPoint;
     public int currentTime;
-    public int health;
+    public int playerHealth;
     public int stars;
 }
 
@@ -25,6 +25,9 @@ public class GameManagerScript : MonoBehaviour
     const string FILE_NAME = "SaveStatus.json";
     //build our UI controls- a simple label
 
+    [SerializeField]
+    public PlayerScript player;
+
     public void ShowStatus()
     {
         //building the formatted string to be shown to the user
@@ -33,7 +36,7 @@ public class GameManagerScript : MonoBehaviour
         message += "Current Level: " + gameStatus.currentLevel + "\n";
         message += "Spawn Point: " + gameStatus.spawnPoint + "\n";
         message += "Current Time: " + gameStatus.currentTime + "\n";
-        message += "Health: " + gameStatus.health + "\n";
+        message += "Player Health: " + gameStatus.playerHealth + "\n";
         message += "Stars: " + gameStatus.stars + "\n";
         GetComponent<TMP_Text>().text = message;
     }
@@ -45,7 +48,8 @@ public class GameManagerScript : MonoBehaviour
         gameStatus.currentLevel = 1;
         gameStatus.spawnPoint = "Tutorial";//reference to a game object
         gameStatus.currentTime = 0;
-        gameStatus.health = 5;
+        gameStatus.playerHealth = player.GetComponent<PlayerScript>().maxHealth;
+        player.health = gameStatus.playerHealth;
         gameStatus.stars = 0;
     }
 
@@ -59,6 +63,7 @@ public class GameManagerScript : MonoBehaviour
             string loadedJson = File.ReadAllText(filePath + "/" + FILE_NAME);
             //deserialise the loaded string into a GameStatus struct
             gameStatus = JsonUtility.FromJson<GameStatus>(loadedJson);
+            player.health = gameStatus.playerHealth;
             Debug.Log("File loaded successfully");
         }
         else
@@ -68,7 +73,8 @@ public class GameManagerScript : MonoBehaviour
             gameStatus.currentLevel = 1;
             gameStatus.spawnPoint = "Tutorial";//reference to a game object
             gameStatus.currentTime = 0;
-            gameStatus.health = 5;
+            gameStatus.playerHealth = player.GetComponent<PlayerScript>().maxHealth;
+            player.health = gameStatus.playerHealth;
             gameStatus.stars = 0;
             Debug.Log("File not found");
         }

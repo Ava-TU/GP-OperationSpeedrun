@@ -2333,6 +2333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
   health: 0
+  maxHealth: 5
   healthDisplay: {fileID: 984975098}
   gm: {fileID: 1688718732}
 --- !u!1 &740608913
@@ -5485,8 +5486,9 @@ MonoBehaviour:
     currentLevel: 0
     spawnPoint: 
     currentTime: 0
-    health: 0
+    playerHealth: 0
     stars: 0
+  player: {fileID: 711541750}
 --- !u!1 &1725264031
 GameObject:
   m_ObjectHideFlags: 0

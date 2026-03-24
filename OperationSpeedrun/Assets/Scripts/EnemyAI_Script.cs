@@ -166,7 +166,7 @@ public class EnemyAI_Script : MonoBehaviour
         {
             print("HIT!");
             player.GetComponent<PlayerScript>().health -= 1; //Does 1 damage to player health
-            gm.gameStatus.health -= 1;
+            gm.gameStatus.playerHealth -= 1;
 
             if (player.GetComponent<PlayerScript>().health <= 0)
             {
