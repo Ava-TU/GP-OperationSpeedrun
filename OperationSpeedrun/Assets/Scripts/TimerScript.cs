@@ -12,7 +12,7 @@ public class TimerScript : MonoBehaviour
     public float startTimer = 0;
 
     [SerializeField]
-    public float fastTime;
+    public float bestTime;
     [SerializeField]
     public float previousTime;
 
@@ -28,11 +28,6 @@ public class TimerScript : MonoBehaviour
             timerText.text = time.ToString();
         }
 
-
-        if (time < fastTime)
-        {
-            fastTime = time;
-        }
         
     }
 
@@ -46,16 +41,17 @@ public class TimerScript : MonoBehaviour
     public void StopTimer()
     {
         isRunning = false;
-        
-        if (time < fastTime)
-        {
-            fastTime = time;
-        }
-        else
-        {
-            previousTime = time;
-        }
 
+        previousTime = time;
+        
+        if (time < bestTime)
+        {
+            bestTime = time;
+        }
+        if (bestTime == 0)
+        {
+            bestTime = previousTime;
+        }
         
     }
 }
