@@ -18,6 +18,7 @@ public class SO_GameManager : ScriptableObject
 {
     // Declare Struct for GameStatus (HUD Data)
     public GameStatus_SO gameStatus;
+    
 
     // Use this for initialization
     public void Start()
