@@ -110,6 +110,23 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isMoving", false); //This transitions the running animation back to the idle one
         }
+
+        //FOR CAMERA - if not working blur all below code out
+        //Vector3 Movement = cameraTransform.transform.right * horizontalInput + cameraTransform.transform.forward * verticalInput;
+        //Movement.y = 0f;
+
+        //characterController.Move(Movement);
+
+        //if (Movement.magnitude != 0f)
+        //{
+            //transform.Rotate(Vector3.up * Input.GetAxis("MouseX") * cameraTransform.GetComponent<CameraMove>().sensitivity * Time.deltaTime);
+
+            //Quaternion CamRotation = cameraTransform.rotation;
+            //CamRotation.x = 0f;
+            //CamRotation.z = 0f;
+
+            //transform.rotation = Quaternion.Lerp(transform.rotation, CamRotation, 0.1f);
+        //}
     }
     private void OnAnimatorMove()
     {
