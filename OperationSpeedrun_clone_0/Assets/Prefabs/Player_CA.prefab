@@ -61,15 +61,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.62584305
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.91
+      value: 0.84999985
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.5
+      value: -3.4085283
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       propertyPath: m_LocalRotation.w
@@ -431,14 +431,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 4196981679
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 684239720
+  InScenePlacedSourceGlobalObjectIdHash: 4196981679
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
