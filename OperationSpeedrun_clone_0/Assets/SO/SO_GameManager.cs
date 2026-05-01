@@ -1,0 +1,70 @@
+using UnityEngine;
+using System.Collections.Generic;
+
+// Game Status Struct
+public struct GameStatus_SO
+{
+    public string playerName;
+    public int currentLevel;
+    public int playerHealth;
+    public int starsCollected;
+}
+
+// Create asset menu item called GameManager
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/GameManager_SO", order = 1)]
+
+// Create Game Manager class that extends ScriptableObject
+public class SO_GameManager : ScriptableObject
+{
+    // Declare Struct for GameStatus (HUD Data)
+    public GameStatus_SO gameStatus;
+    
+
+    // Use this for initialization
+    public void Start()
+    {
+        LoadGameStatus();
+    }
+
+    //this function loads a saving file if found
+    public void LoadGameStatus()
+    {
+        // Check for previous play or death!
+        if (gameStatus.playerName == null || gameStatus.playerHealth <= 0)
+        {
+            // If new game, create new struct
+            gameStatus = new GameStatus_SO();
+            //initilise a new game status
+            resetGame();
+            Debug.Log("File not found");
+        }
+        else
+        {
+            // Do nothing
+        }
+    }
+
+    public void resetGame()
+    {
+        //initilise a new game status
+        gameStatus.playerName = "Subject 17";
+        gameStatus.currentLevel = 1;
+        gameStatus.playerHealth = 5;
+        gameStatus.starsCollected = 0;
+       
+       
+
+    }
+
+    public string UpdateStatus()
+    {
+        //building the formatted string to be shown to the user
+        string message = "";
+        message += "Player Name: " + gameStatus.playerName + "\n";
+        message += "Current Level: " + gameStatus.currentLevel + "\n";
+        message += "Health: " + gameStatus.playerHealth + "\n";
+        message += "Coins: " + gameStatus.starsCollected + "\n";
+        return message;
+    }
+
+}

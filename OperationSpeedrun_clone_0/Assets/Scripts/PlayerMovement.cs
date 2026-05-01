@@ -1,0 +1,150 @@
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    [SerializeField]
+    public float rotationSpeed;
+
+    [SerializeField]
+    public float jumpSpeed;
+
+    [SerializeField]
+    public float jumpGracePeriod; //This will be used to allow the player to jump if they press the jump button a fraction too early/late to improve the game feel :)
+
+    private Animator animator;
+    private CharacterController characterController;
+    private float ySpeed; //Keeps track of the speed in the Y direction & increase this when the player jumps and decrease due to the gravity
+    private float originalStepOffset;
+    private float? lastGroundedTime; //The ? means that it can either contain a float value or no value at all
+
+    [SerializeField]
+    private float? jumpButtonPressedTime;
+
+    public Transform cameraTransform;
+
+    private bool isJumping;
+    private bool isGrounded;
+
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+
+        characterController = GetComponent<CharacterController>();
+        originalStepOffset = characterController.stepOffset;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical"); //Gets the input values for these keys 
+
+        Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
+        float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+
+        if (Input.GetKey(KeyCode.LeftShift) == false && Input.GetKey(KeyCode.RightShift) == false) //If the player isn't pressing shift, the input magnitude parameter is set to 0.5, only playing the walking animation
+        {
+            inputMagnitude /= 2;
+        }
+
+        animator.SetFloat("Input Magnitude", inputMagnitude, 0.05f, Time.deltaTime); //This controls the blending between the animations
+
+        movementDirection.Normalize(); //Stops the directional movement increasing speed
+
+        movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection; //This is sync up the players movement direction to the cameras facing direction
+
+        ySpeed += Physics.gravity.y * Time.deltaTime; //Getting gravity value and adding it to the Y value every second per frame
+
+        if (characterController.isGrounded)
+        {
+            lastGroundedTime = Time.time; //Stores the time starting from when the player was last on the ground
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpButtonPressedTime = Time.time; //Stores the time starting from when the player last pressed the jump button
+        }
+
+        if (Time.time - lastGroundedTime <= jumpGracePeriod) //Player only jumps if the controller is on the ground
+        {
+            ySpeed = -0.5f; //This helps to "keep" the player on the ground, so that I can constantly press jump and have it work properly
+            characterController.stepOffset = originalStepOffset;
+            animator.SetBool("isGrounded", true);
+            isGrounded = true;
+            animator.SetBool("isJumping", false);
+            isJumping = false;
+            animator.SetBool("isFalling", false);
+
+            if (Time.time - jumpButtonPressedTime <= jumpGracePeriod)
+            {
+                ySpeed = jumpSpeed;
+                animator.SetBool("isJumping", true);
+                isJumping = true;
+                jumpButtonPressedTime = null;
+                lastGroundedTime = null; //Setting these back to null makes sure the player doesnt jump repeatedly during the grace period
+            }
+        }
+        else
+        {
+            characterController.stepOffset = 0; //This helps stopping the player from sticking to walls when going up steps/slopes
+            animator.SetBool("isGrounded", false);
+            isGrounded = false;
+
+            if ((isJumping && ySpeed < 0) || ySpeed < -2)
+            {
+                animator.SetBool("isFalling", true);
+            }
+        }
+        
+
+        if (movementDirection != Vector3.zero) //Checks if player is moving
+        {
+            animator.SetBool("isMoving", true); //If the player is moving, sets the animator bool to true, transitioning from idle to running
+            Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up); //Rotates the player to the direction of the movement input
+
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime); //Rotates towards the above direction according to the rotation speed variable
+        }
+        else
+        {
+            animator.SetBool("isMoving", false); //This transitions the running animation back to the idle one
+        }
+
+        //FOR CAMERA - if not working blur all below code out
+        //Vector3 Movement = cameraTransform.transform.right * horizontalInput + cameraTransform.transform.forward * verticalInput;
+        //Movement.y = 0f;
+
+        //characterController.Move(Movement);
+
+        //if (Movement.magnitude != 0f)
+        //{
+            //transform.Rotate(Vector3.up * Input.GetAxis("MouseX") * cameraTransform.GetComponent<CameraMove>().sensitivity * Time.deltaTime);
+
+            //Quaternion CamRotation = cameraTransform.rotation;
+            //CamRotation.x = 0f;
+            //CamRotation.z = 0f;
+
+            //transform.rotation = Quaternion.Lerp(transform.rotation, CamRotation, 0.1f);
+        //}
+    }
+    private void OnAnimatorMove()
+    {
+        Vector3 velocity = animator.deltaPosition;
+        velocity.y = ySpeed * Time.deltaTime; //Combines the animation position change with the calculated ySpeed (Root Motion)
+
+        characterController.Move(velocity);
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (focus)
+        {
+            //Cursor.lockState = CursorLockMode.Locked; //Hides and locks cursor to center of view
+        }
+        else
+        {
+            //Cursor.lockState = CursorLockMode.None;
+        }
+    }
+}
