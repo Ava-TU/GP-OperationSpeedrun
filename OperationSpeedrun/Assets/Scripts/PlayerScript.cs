@@ -28,6 +28,8 @@ public class PlayerScript : MonoBehaviour
         gm.Start();
 
         UpdateSceneFromManager();
+
+        //gm = GameObject.Find("Canvas/DataText").GameManagerScript;
     }
 
     void Awake()

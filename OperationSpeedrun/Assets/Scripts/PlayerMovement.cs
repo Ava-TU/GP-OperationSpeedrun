@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
+        cameraTransform = GameObject.Find("Main Camera").transform;
     }
 
     // Update is called once per frame
