@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour
 
     public void TakeDamage()
     {
-        health -= damage;
+        health = health - damage;
     }
 
     void OnTriggerEnter(Collider col)
