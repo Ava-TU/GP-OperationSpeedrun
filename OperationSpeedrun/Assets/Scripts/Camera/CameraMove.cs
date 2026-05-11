@@ -24,8 +24,8 @@ public class CameraMove : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        currentX += Input.GetAxis("MouseX") * sensitivity * Time.deltaTime;
-        currentY += Input.GetAxis("MouseY")* sensitivity * Time.deltaTime;
+        currentX += Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+        currentY += Input.GetAxis("Mouse Y")* sensitivity * Time.deltaTime;
 
         currentY = Mathf.Clamp(currentY, YMax, YMax);
 
