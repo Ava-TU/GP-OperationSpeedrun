@@ -5,6 +5,7 @@ public class MainMenuScript : MonoBehaviour
 {
     public int singleSceneIndex;
     public int multiSceneIndex;
+    public int winSceneIndex;
 
     public void SinglePlayerStart()
     {
@@ -19,5 +20,10 @@ public class MainMenuScript : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void EndGame()
+    {
+        SceneManager.LoadScene(winSceneIndex);
     }
 }
