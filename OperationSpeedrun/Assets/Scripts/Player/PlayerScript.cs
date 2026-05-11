@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     public int maxHealth;
     public int currentStars;
     public int maxStars;
+    public int damage;
    
 
     [SerializeField]
@@ -51,6 +52,11 @@ public class PlayerScript : MonoBehaviour
         {
             health = 0;
         }
+    }
+
+    public void TakeDamage()
+    {
+        health -= damage;
     }
 
     void OnTriggerEnter(Collider col)
