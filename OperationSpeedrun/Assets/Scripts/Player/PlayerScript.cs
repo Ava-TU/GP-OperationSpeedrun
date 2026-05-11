@@ -4,12 +4,16 @@ using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
+    [Header("Player Stats")]
     public int health;
     public int maxHealth;
+    public int currentStars;
+    public int maxStars;
    
 
     [SerializeField]
     public TMP_Text healthDisplay;
+    public TMP_Text starsDisplay;
 
     [SerializeField]
     public TMP_Text gameStatusUI;
@@ -24,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        currentStars = gm.gameStatus.stars;
 
         gm.Start();
 
@@ -46,22 +51,14 @@ public class PlayerScript : MonoBehaviour
         {
             health = 0;
         }
-
-        void OnTriggerEnter(Collider col)
-        {
-            if (col.gameObject.name == "Star")
-            {
-                Destroy(col.gameObject);
-                gm.gameStatus.stars += 1;
-            }
-        }
     }
 
     void OnTriggerEnter(Collider col)
         {
-            if (col.gameObject.name == "Star")
+            if (col.CompareTag("Star"))
             {
                 Destroy(col.gameObject);
+                currentStars++;
                 gm.gameStatus.stars += 1;
             }
         }
