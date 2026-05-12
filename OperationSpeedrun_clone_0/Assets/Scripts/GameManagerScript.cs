@@ -43,7 +43,7 @@ public class GameManagerScript : MonoBehaviour
         message += "Player Health: " + gameStatus.playerHealth + "\n";
         message += "Stars: " + gameStatus.stars + "\n";
         message += "Player Position: " + gameStatus.playerPosition + "\n";
-        GetComponent<TMP_Text>().text = message;
+        //GetComponent<TMP_Text>().text = message;
     }
     //this function emulates a random game event that changes the player's statistics
     public void NewGameStatus()
@@ -58,6 +58,7 @@ public class GameManagerScript : MonoBehaviour
         gameStatus.playerPosition = new Vector3(0, 0, 0);
         GameObject.Find("Player").transform.position = gameStatus.playerPosition;
         gameStatus.stars = 0;
+        player.currentStars = 0;
 
         SaveGameStatus();
         

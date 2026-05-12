@@ -739,13 +739,13 @@ PrefabInstance:
       addedObject: {fileID: 7355100061434384300}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2425805926600769209}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -1606663467810174466}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6347635827560307848}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1277993203230166529}
   m_SourcePrefab: {fileID: 100100000, guid: a6a719bcf5001284ea96f1e2a50db527, type: 3}
 --- !u!4 &7918778770969865219 stripped
 Transform:
@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1106789563
+  GlobalObjectIdHash: 4196981679
   InScenePlacedSourceGlobalObjectIdHash: 4196981679
   DeferredDespawnTick: 0
   Ownership: 1
@@ -851,24 +851,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2425805926600769209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8687230940110081324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cea89baaf9b73b84ab77cb71d98e2214, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
-  health: 0
-  maxHealth: 5
-  healthDisplay: {fileID: 0}
-  gameStatusUI: {fileID: 0}
-  gm: {fileID: 0}
-  gmSO: {fileID: 11400000, guid: c7007b5a8e2549b4799ac1ed05d0317c, type: 2}
 --- !u!114 &-1606663467810174466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -955,3 +937,19 @@ MonoBehaviour:
       Synchronize: 1
       ParameterType: 4
   AnimatorParametersExpanded: 0
+--- !u!114 &1277993203230166529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8687230940110081324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c85e34a1b44eec44583a568b42dc8bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScriptMulti
+  currentStars: 0
+  maxStars: 0
+  damage: 0
+  starsDisplay: {fileID: 0}

@@ -63,7 +63,7 @@ public class SO_GameManager : ScriptableObject
         message += "Player Name: " + gameStatus.playerName + "\n";
         message += "Current Level: " + gameStatus.currentLevel + "\n";
         message += "Health: " + gameStatus.playerHealth + "\n";
-        message += "Coins: " + gameStatus.starsCollected + "\n";
+        message += "Stars: " + gameStatus.starsCollected + "\n";
         return message;
     }
 
