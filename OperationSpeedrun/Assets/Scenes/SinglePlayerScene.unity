@@ -1480,6 +1480,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d0ec99d0ed21cec4c9b86a33646dabee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 294024399}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d0ec99d0ed21cec4c9b86a33646dabee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 294024400}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d0ec99d0ed21cec4c9b86a33646dabee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 294024401}
   m_SourcePrefab: {fileID: 100100000, guid: d0ec99d0ed21cec4c9b86a33646dabee, type: 3}
 --- !u!1 &294024395 stripped
 GameObject:
@@ -1498,7 +1504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874fe76ba22da704499a164359c33270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC_Script
-  mainCamera: {fileID: 2142903499}
+  waitTimeOnWayPoint: 1
+  path: {fileID: 2142903507}
 --- !u!54 &294024399
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1526,6 +1533,50 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!195 &294024400
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294024395}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.97
+  m_Speed: 5
+  m_Acceleration: 10
+  avoidancePriority: 50
+  m_AngularSpeed: 500
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2.4
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 2
+--- !u!95 &294024401
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294024395}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 1caff42079b384047b955fbb3f362b66, type: 3}
+  m_Controller: {fileID: 9100000, guid: 47cc9a01b0616124aa003d18a43c864c, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &305457058
 GameObject:
   m_ObjectHideFlags: 0
@@ -9809,17 +9860,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaypointManager
   waypoints:
-  - {fileID: 1776899551}
-  - {fileID: 734040456}
-  - {fileID: 829099803}
-  - {fileID: 603907721}
-  - {fileID: 1673454528}
-  - {fileID: 1387860247}
-  - {fileID: 672612887}
-  - {fileID: 688730551}
-  - {fileID: 348438094}
-  - {fileID: 2126545536}
-  - {fileID: 24124796}
+  - {fileID: 1776899552}
+  - {fileID: 734040457}
+  - {fileID: 829099804}
+  - {fileID: 603907722}
+  - {fileID: 1673454529}
+  - {fileID: 1387860248}
+  - {fileID: 672612888}
+  - {fileID: 688730552}
+  - {fileID: 348438095}
+  - {fileID: 2126545537}
+  - {fileID: 24124797}
+  pathType: 1
 --- !u!1001 &6509492720448625225
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,54 +3,90 @@ using UnityEngine.AI;
 
 public class NPC_Script : MonoBehaviour
 {
-	// Declare a public variable to reference the Main Camera
-	public GameObject mainCamera;
-	public const float PROXIMITY_DISTANCE = 1.0f;
-	private GameObject currentTarget;
-	private WaypointManager waypointManager;
-	const float DECELERATION_FACTOR = 0.6f;
+	[SerializeField] float waitTimeOnWayPoint = 1f;
+	[SerializeField] WaypointManager path;
 
-	// Now variables needed by FixedUpdate
-	Vector3 source;
-	Vector3 target;
-	Vector3 outputVelocity;
+	NavMeshAgent agent;
+	Animator animator;
 
-	// And arrive
-	Vector3 directionToTarget;
-	Vector3 velocityToTarget;
-	float distanceToTarget;
-	float speed;
+	float time = 0f;
 
-	// Use this for initialisation
-	void Awake ()
+	private void Awake()
 	{
-		// Get the WaypointManager from the camera and then the first object
-		waypointManager = mainCamera.GetComponent<WaypointManager> ();
-		currentTarget = waypointManager.NextWaypoint (null);
+		agent = GetComponent<NavMeshAgent>();
+		animator = GetComponent<Animator>();
 	}
 
-	void FixedUpdate ()
+	private void Start()
 	{
-		source = transform.position;
-		target = currentTarget.transform.position;
-		outputVelocity = Arrive (source, target);
-		GetComponent<Rigidbody> ().AddForce (outputVelocity, ForceMode.VelocityChange);
+		agent.destination = path.GetCurrentWayPoint();
+	}
+
+	private void Update()
+	{
+		if (agent.remainingDistance <= 0.1f)
+		{
+			time += Time.deltaTime;
+			if (time >= waitTimeOnWayPoint)
+			{
+				time = 0f;
+				agent.destination = path.GetNextWaypoint();
+			}
+		}
+
+		float normalizedSpeed = Mathf.InverseLerp(0f, agent.speed, agent.velocity.magnitude);
+		animator.SetFloat("speed", normalizedSpeed);
+	}
+
+
+	// Declare a public variable to reference the Main Camera
+	//public GameObject mainCamera;
+	//public const float PROXIMITY_DISTANCE = 1.0f;
+	//private GameObject currentTarget;
+	//private WaypointManager waypointManager;
+	//const float DECELERATION_FACTOR = 0.6f;
+
+	// Now variables needed by FixedUpdate
+	//Vector3 source;
+	//Vector3 target;
+	//Vector3 outputVelocity;
+
+	// And arrive
+	//Vector3 directionToTarget;
+	//Vector3 velocityToTarget;
+	//float distanceToTarget;
+	//float speed;
+
+	// Use this for initialisation
+	//void Awake ()
+	//{
+		// Get the WaypointManager from the camera and then the first object
+		//waypointManager = mainCamera.GetComponent<WaypointManager> ();
+		//currentTarget = waypointManager.NextWaypoint (null);
+	//}
+
+	//void FixedUpdate ()
+	//{
+		//source = transform.position;
+		//target = currentTarget.transform.position;
+		//outputVelocity = Arrive (source, target);
+		//GetComponent<Rigidbody> ().AddForce (outputVelocity, ForceMode.VelocityChange);
 		
 		// Check the distance from object to target, and make query
 		// When it moves within the PROXIMITY_DISTANCE
-		if (Vector3.Distance (source, target) < PROXIMITY_DISTANCE) 
-		{
-			currentTarget = waypointManager.NextWaypoint (currentTarget);
-		}
-	}
+		//if (Vector3.Distance (source, target) < PROXIMITY_DISTANCE) 
+		//{
+			//currentTarget = waypointManager.NextWaypoint (currentTarget);
+		//}
+	//}
 	
 	// Arrive function
-	private Vector3 Arrive (Vector3 source, Vector3 target)
-	{
-		distanceToTarget = Vector3.Distance (source, target);
-		directionToTarget = Vector3.Normalize (target - source);
-		speed = distanceToTarget / DECELERATION_FACTOR;
-		velocityToTarget = speed * directionToTarget;
-		return velocityToTarget - GetComponent<Rigidbody> ().linearVelocity;
-	}
+	//private Vector3 Arrive (Vector3 source, Vector3 target)
+	//{
+		//distanceToTarget = Vector3.Distance (source, target);
+		//directionToTarget = Vector3.Normalize (target - source);
+		//speed = distanceToTarget / DECELERATION_FACTOR;
+		//velocityToTarget = speed * directionToTarget;
+		//return velocityToTarget - GetComponent<Rigidbody> ().linearVelocity;
+	//}
 }
