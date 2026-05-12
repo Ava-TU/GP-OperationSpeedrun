@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Star
   - Enemy
+  - RedZone
   layers:
   - Default
   - TransparentFX

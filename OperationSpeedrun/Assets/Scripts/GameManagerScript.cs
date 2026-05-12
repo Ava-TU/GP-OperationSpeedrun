@@ -43,7 +43,7 @@ public class GameManagerScript : MonoBehaviour
         message += "Player Health: " + gameStatus.playerHealth + "\n";
         message += "Stars: " + gameStatus.stars + "\n";
         message += "Player Position: " + gameStatus.playerPosition + "\n";
-        //GetComponent<TMP_Text>().text = message;
+        GameObject.Find("DataText").GetComponent<TMP_Text>().text = message;
     }
     //this function emulates a random game event that changes the player's statistics
     public void NewGameStatus()
@@ -75,7 +75,7 @@ public class GameManagerScript : MonoBehaviour
             string loadedJson = File.ReadAllText(filePath + "/" + FILE_NAME);
             //deserialise the loaded string into a GameStatus struct
             gameStatus = JsonUtility.FromJson<GameStatus>(loadedJson);
-            player.health = gameStatus.playerHealth;
+            //player.health = gameStatus.playerHealth;
             timer.previousTime = gameStatus.previousTime;
             timer.bestTime = gameStatus.bestTime;
             GameObject.Find("Player").transform.position = gameStatus.playerPosition;

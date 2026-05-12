@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class PlayerScript : MonoBehaviour
 
         gm.Start();
 
-        healthDisplay = GameObject.Find("playerHealthUI").GetComponent<TextMeshPro>();
+        //healthDisplay = GameObject.Find("playerHealthUI").GetComponent<TextMeshPro>();
 
         UpdateSceneFromManager();
 
@@ -48,7 +49,7 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthDisplay.text = "Health: " + gm.gameStatus.playerHealth;
+        //healthDisplay.text = "Health: " + gm.gameStatus.playerHealth;
 
         if (health <= 0)
         {
@@ -62,14 +63,19 @@ public class PlayerScript : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider col)
+    {
+        if (col.CompareTag("Star"))
         {
-            if (col.CompareTag("Star"))
-            {
-                Destroy(col.gameObject);
-                currentStars++;
-                gm.gameStatus.stars += 1;
-            }
+            Destroy(col.gameObject);
+            currentStars++;
+            gm.gameStatus.stars += 1;
         }
+
+        if (col.CompareTag("RedZone"))
+        {
+            SceneManager.LoadScene("SinglePlayerScene");
+        }
+    }
 
     private void FixedUpdate()
     {
